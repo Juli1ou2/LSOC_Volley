@@ -27,9 +27,6 @@ class Club
     #[ORM\OneToMany(mappedBy: 'club', targetEntity: Evenement::class)]
     private Collection $evenements;
 
-    #[ORM\OneToMany(mappedBy: 'club', targetEntity: User::class)]
-    private Collection $users;
-
     #[ORM\OneToMany(mappedBy: 'club', targetEntity: MatchVolley::class)]
     private Collection $matchVolleys;
 
@@ -39,7 +36,6 @@ class Club
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
-        $this->users = new ArrayCollection();
         $this->matchVolleys = new ArrayCollection();
         $this->equipes = new ArrayCollection();
     }
@@ -109,36 +105,6 @@ class Club
             // set the owning side to null (unless already changed)
             if ($evenement->getClub() === $this) {
                 $evenement->setClub(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setClub($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getClub() === $this) {
-                $user->setClub(null);
             }
         }
 
