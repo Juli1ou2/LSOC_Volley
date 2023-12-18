@@ -101,8 +101,13 @@
                 </li>
             </ul>
             <span class="navbar-text">
-{#                {% if() %}#}
-                <a class="nav-link active border border-danger rounded p-1 bg-danger text-white" aria-current="page" href={{ path('app_login') }}>Connexion</a>
+{% if app.user %}
+    <a class="nav-link active border border-danger rounded p-1 bg-danger text-white" aria-current="page"
+       href={{ path('app_logout') }}>Déconnexion</a>
+    {% else %}
+    <a class="nav-link active border border-danger rounded p-1 bg-danger text-white" aria-current="page"
+       href={{ path('app_login') }}>Connexion</a>
+{% endif %}
             </span>
 
         </div>
