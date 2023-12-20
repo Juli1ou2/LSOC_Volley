@@ -31,7 +31,7 @@ class User
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?club $club = null;
+    private ?Club $club = null;
 
     public function getId(): ?int
     {
@@ -98,12 +98,12 @@ class User
         return $this;
     }
 
-    public function getClub(): ?club
+    public function getClub(): ?Club
     {
         return $this->club;
     }
 
-    public function setClub(?club $club): static
+    public function setClub(?Club $club): static
     {
         $this->club = $club;
 

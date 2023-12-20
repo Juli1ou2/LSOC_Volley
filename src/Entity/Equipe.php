@@ -23,9 +23,9 @@ class Equipe
 
     #[ORM\ManyToOne(inversedBy: 'equipes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?club $club = null;
+    private ?Club $club = null;
 
-    #[ORM\ManyToMany(targetEntity: matchVolley::class, inversedBy: 'equipes')]
+    #[ORM\ManyToMany(targetEntity: MatchVolley::class, inversedBy: 'equipes')]
     private Collection $matchVolley;
 
     #[ORM\ManyToMany(targetEntity: Entraineur::class, mappedBy: 'equipes')]
@@ -70,12 +70,12 @@ class Equipe
         return $this;
     }
 
-    public function getClub(): ?club
+    public function getClub(): ?Club
     {
         return $this->club;
     }
 
-    public function setClub(?club $club): static
+    public function setClub(?Club $club): static
     {
         $this->club = $club;
 

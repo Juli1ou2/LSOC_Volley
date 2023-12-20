@@ -36,7 +36,7 @@ class Entraineur
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $genre = null;
 
-    #[ORM\ManyToMany(targetEntity: equipe::class, inversedBy: 'entraineurs')]
+    #[ORM\ManyToMany(targetEntity: Equipe::class, inversedBy: 'entraineurs')]
     private Collection $equipes;
 
     public function __construct()
