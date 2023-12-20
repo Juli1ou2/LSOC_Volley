@@ -9,7 +9,54 @@
     </style>
 
     <div class="example-wrapper">
-        <h2>loisir</h2>
+        <div style="margin: 0 auto;
+                    width: 60%;" class="text-center">
+            <br>
+            <h2>Loisir</h2>
+            <img   alt="photo_equipe_loisir(pasphoto)" src="" width="60%" height="5%">
+            <br><br>
 
+            <button type="button" class="btn btn-danger"  onclick="window.location.href ='{{asset("https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php?saison=2023/2024&codent=PTIDF92&poule=LCU")}}';">Suivez le calendrier de nos Loisirs</button>
+            <br>
+            <br><table class="table">
+                <thead>
+                <tr>
+
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Taille</th>
+                    <th scope="col">Poste</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for joueur in joueurs %}
+                    <tr>
+
+                        <td>{{ joueur.nom }}</td>
+                        <td>{{ joueur.prenom }}</td>
+                        <td>{{ joueur.age }}</td>
+                        <td>{{ joueur.taille }}</td>
+                        <td>{{ joueur.poste }}</td>
+                        <td>
+                            <a class="btn btn-secondary"
+                               role="button">Modifier
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger"
+                               role="button">Supprimer
+                            </a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+
+
+        </div>
     </div>
 {% endblock %}
