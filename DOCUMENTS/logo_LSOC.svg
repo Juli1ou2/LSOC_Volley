@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.5"
-     inkscape:cx="-716"
-     inkscape:cy="613"
+     inkscape:cx="574"
+     inkscape:cy="773"
      inkscape:window-width="1902"
      inkscape:window-height="1033"
      inkscape:window-x="0"
@@ -681,5 +681,21 @@
        cx="-322.52707"
        cy="125.67708"
        r="37.835415" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40.0899px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00225"
+       x="232.76718"
+       y="140.77777"
+       id="text5017"><tspan
+         sodipodi:role="line"
+         id="tspan5015"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';stroke-width:1.00225"
+         x="232.76718"
+         y="140.77777"> Segoe UI</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:1.00225"
+         x="232.76718"
+         y="190.89015"
+         id="tspan5019" /></text>
   </g>
 </svg>
