@@ -22,16 +22,23 @@ class PlanningMatchController extends AbstractController
                           MatchVolleyRepository $matchVolleyRepository, EquipeRepository $equipeRepository, ClubRepository $clubRepository): Response
     {
         $listeMatchs = $matchVolleyRepository->findAll();
+        $listeEquipes = $equipeRepository->findAll();
 
         $matchVolley = new MatchVolley();
         $formMatchVolley = $this->createForm(MatchVolleyType::class, $matchVolley);
         $formMatchVolley->handleRequest($request);
 
         if($formMatchVolley->isSubmitted() && $formMatchVolley->isValid()){
-            $equipe1 = $formMatchVolley->get('equipe1')->getData();
-            $equipe2 = $formMatchVolley->get('equipe2')->getData();
-            $matchVolley->addEquipe($equipe1);
-            $matchVolley->addEquipe($equipe2);
+//            $equipe1 = $formMatchVolley->get('equipe1')->getData();
+//            $equipe2 = $formMatchVolley->get('equipe2')->getData();
+//            $matchVolley->addEquipe($equipe1);
+//            $matchVolley->addEquipe($equipe2);
+            $equipesSelectionnees = $formMatchVolley->get('equipes')->getData();
+
+            // Parcourir la collection d'équipes
+            foreach ($equipesSelectionnees as $equipe) {
+                $matchVolley->addEquipe($equipe);
+            }
 
             $entityManager->persist($matchVolley); //précharger les données avant de les envoyer
             $entityManager->flush($matchVolley); //envoi des données à la BDD
@@ -42,7 +49,8 @@ class PlanningMatchController extends AbstractController
         return $this->render('planning_match/index.html.twig', [
             'controller_name' => 'PlanningMatchController',
             'listeMatchs' => $listeMatchs,
-            'formMatchVolley' => $formMatchVolley
+            'formMatchVolley' => $formMatchVolley,
+            'listeEquipes' => $listeEquipes
         ]);
     }
 

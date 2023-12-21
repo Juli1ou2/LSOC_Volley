@@ -85,12 +85,8 @@
             </div>
 
             <div class="mb-3">
-                {{ form_label(formMatchVolley.equipe1, 'Equipe 1', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
-                {{ form_widget(formMatchVolley.equipe1, {'attr':{'class':'form-select'}}) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.equipe2, 'Equipe 2', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
-                {{ form_widget(formMatchVolley.equipe2, {'attr':{'class':'form-select'}}) }}
+                {{ form_label(formMatchVolley.equipes, 'Equipes du match', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
+                {{ form_widget(formMatchVolley.equipes, {'attr':{'class':''}}) }}
             </div>
             <div class="mb-3">
                 {{ form_label(formMatchVolley.idEquipe_vainqueur, 'ID équipe gagnante', {'label_attr':{'class':'form-label'}}) }}

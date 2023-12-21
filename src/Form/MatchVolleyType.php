@@ -24,23 +24,14 @@ class MatchVolleyType extends AbstractType
                 'class' => Club::class,
                 'choice_label' => 'nom',
             ])
-            ->add('equipe1', EntityType::class, [
+            ->add('equipes', EntityType::class, [
                 'class' => Equipe::class,
                 'choice_label' => function (Equipe $equipe) {
                     // Utilisez ici les attributs de la classe Equipe pour personnaliser le label
                     return sprintf('%s %s - %s', $equipe->getId(), $equipe->getClub()->getNom(), $equipe->getLibelle());
                 },
-                'multiple' => false,
-                'label' => 'Équipe 1',
-            ])
-            ->add('equipe2', EntityType::class, [
-                'class' => Equipe::class,
-                'choice_label' => function (Equipe $equipe) {
-                    // Utilisez ici les attributs de la classe Equipe pour personnaliser le label
-                    return sprintf('%s %s - %s', $equipe->getId(), $equipe->getClub()->getNom(), $equipe->getLibelle());
-                },
-                'multiple' => false,
-                'label' => 'Équipe 2',
+                'multiple' => true,
+                'expanded' => true,
             ]);
     }
 
