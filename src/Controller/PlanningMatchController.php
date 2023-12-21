@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Eleve;
 use App\Entity\MatchVolley;
-use App\Form\EleveType;
-use App\Form\MatchVolleyType;
+use App\Form\MatchType;
 use App\Repository\ClubRepository;
 use App\Repository\EquipeRepository;
 use App\Repository\MatchVolleyRepository;
@@ -23,34 +21,50 @@ class PlanningMatchController extends AbstractController
     {
         $listeMatchs = $matchVolleyRepository->findAll();
         $listeEquipes = $equipeRepository->findAll();
+        $listeClubs = $clubRepository->findAll();
 
         $matchVolley = new MatchVolley();
-        $formMatchVolley = $this->createForm(MatchVolleyType::class, $matchVolley);
-        $formMatchVolley->handleRequest($request);
+        $formMatch = $this->createForm(MatchType::class);
+        $formMatch->handleRequest($request);
 
-        if($formMatchVolley->isSubmitted() && $formMatchVolley->isValid()){
-//            $equipe1 = $formMatchVolley->get('equipe1')->getData();
-//            $equipe2 = $formMatchVolley->get('equipe2')->getData();
-//            $matchVolley->addEquipe($equipe1);
-//            $matchVolley->addEquipe($equipe2);
-            $equipesSelectionnees = $formMatchVolley->get('equipes')->getData();
+        var_dump($matchVolley);
+        dump($matchVolley);
+        dump($request->request->all());
 
-            // Parcourir la collection d'équipes
-            foreach ($equipesSelectionnees as $equipe) {
-                $matchVolley->addEquipe($equipe);
-            }
+        if($formMatch->isSubmitted() && $formMatch->isValid()){
+            $idEquipe_vainqueur = (int) $formMatch->get('idEquipe_vainqueur')->getData();
+            $score = $formMatch->get('score')->getData();
+            $duree = $formMatch->get('duree')->getData();
+            $dateMatch = $formMatch->get('dateMatch')->getData();
+            $idClub = (int) $formMatch->get('idClub')->getData();
+            $idEquipe1 = (int) $formMatch->get('idEquipe1')->getData();
+            $idEquipe2 = (int) $formMatch->get('idEquipe2')->getData();
 
-            $entityManager->persist($matchVolley); //précharger les données avant de les envoyer
-            $entityManager->flush($matchVolley); //envoi des données à la BDD
+            $matchVolley->setIdEquipeVainqueur($idEquipe_vainqueur);
+            $matchVolley->setScore($score);
+            $matchVolley->setDuree($duree);
+            $matchVolley->setDateMatch($dateMatch);
+            $matchVolley->setClub($clubRepository->find($idClub));
+            $matchVolley->addEquipe($equipeRepository->find($idEquipe1));
+            $matchVolley->addEquipe($equipeRepository->find($idEquipe2));
 
-            return $this->redirectToRoute('app_planning_match', ['random' => uniqid()]);
+            var_dump($matchVolley);
+            dump($matchVolley);
+            dump($request->request->all());
+
+            $entityManager->persist($matchVolley);
+            $entityManager->flush();
+
+//            return $this->redirectToRoute('app_planning_match', ['random' => uniqid()]);
+            return $this->redirectToRoute('app_planning_match');
         }
 
         return $this->render('planning_match/index.html.twig', [
             'controller_name' => 'PlanningMatchController',
             'listeMatchs' => $listeMatchs,
-            'formMatchVolley' => $formMatchVolley,
-            'listeEquipes' => $listeEquipes
+            'formMatch' => $formMatch,
+            'listeEquipes' => $listeEquipes,
+            'listeClubs' => $listeClubs
         ]);
     }
 

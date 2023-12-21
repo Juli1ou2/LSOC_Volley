@@ -1,3 +1,4 @@
+use lsoc_volley ;
 -- CLUBS--
 INSERT INTO `club` (`id`, `nom`, `ville`, `adresse`) VALUES (NULL, 'Test Championz', 'TEST', '12 rue du Test - 77530 TEST');
 INSERT INTO `club` (`id`, `nom`, `ville`, `adresse`) VALUES (NULL, 'Test2 Gang', 'TEST2', '12 rue du Test2 - 78530 TEST2');

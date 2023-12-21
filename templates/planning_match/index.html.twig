@@ -54,14 +54,30 @@
                             <td>{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</td>
                         {% endfor %}
 
-                        <td>{{ libelleEquipeVainqueur }} - {{ nomClubEquipeVainqueur }}</td>
-                        <td>{{ match.getScore }}</td>
-                        <td>{{ match.getDuree }}</td>
+                        {% if match.getIdEquipeVainqueur != '' %}
+                            <td>{{ libelleEquipeVainqueur }} - {{ nomClubEquipeVainqueur }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                        {% if match.getScore != '' %}
+                            <td>{{ match.getScore }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                        {% if match.getDuree != '' %}
+                            <td>{{ match.getDuree.format('H:i:s') }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
                         <td class="border border-1">
                             <a class="btn" style="background-color: #8eb1c7;"
                                role="button"><img src="{{ asset('images/modifier.png') }}"
                                                   width="" height="26px"></a>
-                            <a class="btn" style="background-color: #C31B13;" href="{{ path('app_match_volley_delete', {id : match.id}) }}"
+                            <a class="btn" style="background-color: #C31B13;"
+                               href="{{ path('app_match_volley_delete', {id : match.id}) }}"
                                role="button"><img src="{{ asset('images/supprimer.png') }}"
                                                   width="" height="26px"></a>
                         </td>
@@ -72,41 +88,67 @@
         </div>
 
         <div class="container">
-            <h3>Ajouter un matchs</h3>
+            <h3>Ajouter un match</h3>
 
-            {{ form_start(formMatchVolley, {'attr':{'class':'form', 'style':'width: 30%;'}}) }}
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.dateMatch, 'Date', {'label_attr':{'class':'form-label'}}) }}
-                {{ form_widget(formMatchVolley.dateMatch, {'attr':{'class':'form-control', 'required':'required'}}) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.club, 'Club à domicile', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
-                {{ form_widget(formMatchVolley.club, {'attr':{'class':'form-control'}}) }}
-            </div>
+            <form action="{{ path('app_planning_match') }}" method="post" style="width: 30%;">
+                <div class="form-group mb-3">
+                    <label for="dateMatch">Date du match</label>
+                    <input type="date" class="form-control" id="dateMatch" name="formMatch[dateMatch]" required>
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.equipes, 'Equipes du match', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
-                {{ form_widget(formMatchVolley.equipes, {'attr':{'class':''}}) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.idEquipe_vainqueur, 'ID équipe gagnante', {'label_attr':{'class':'form-label'}}) }}
-                {{ form_widget(formMatchVolley.idEquipe_vainqueur, {'attr':{'class':'form-control'}}) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.idEquipe_perdant, 'ID équipe perdante', {'label_attr':{'class':'form-label'}}) }}
-                {{ form_widget(formMatchVolley.idEquipe_perdant, {'attr':{'class':'form-control'}}) }}
-            </div>
+                <div class="form-group mb-3">
+                    <label for="idClub">Club</label>
+                    <select class="form-control" id="idClub" name="formMatch[idClub]" required>
+                        {% for club in listeClubs %}
+                            <option value="{{ club.getId }}">{{ club.getNom }} {{ club.getVille }}</option>
+                        {% endfor %}
+                        <!-- Ajoutez d'autres options selon vos besoins -->
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.score, 'Score', {'label_attr':{'class':'form-label'}}) }}
-                {{ form_widget(formMatchVolley.score, {'attr':{'class':'form-control'}}) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(formMatchVolley.duree, 'Durée', {'label_attr':{'class':'form-label'}}) }}
-                {{ form_widget(formMatchVolley.duree, {'attr':{'class':'form-control'}}) }}
-            </div>
-            <button type="submit" class="btn text-white" style="background-color: #8eb1c7;">Enregistrer</button>
-            {{ form_end(formMatchVolley) }}
+                <div class="form-group mb-3">
+                    <label for="idEquipe1">Équipe 1</label>
+                    <select class="form-control" id="idEquipe1" name="formMatch[idEquipe1]" required>
+                        {% for equipe in listeEquipes %}
+                            <option value="{{ equipe.getId }}">{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="idEquipe2">Équipe 2</label>
+                    <select class="form-control" id="idEquipe2" name="formMatch[idEquipe2]" required>
+                        {% for equipe in listeEquipes %}
+                            <option value="{{ equipe.getId }}">{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="idEquipeVainqueur">Équipe Vainqueur</label>
+                    <select class="form-control" id="idEquipeVainqueur" name="formMatch[idEquipeVainqueur]">
+                        <option value="">--</option>
+                        <option value="" class="text-warning">Match nul</option>
+                        {% for equipe in listeEquipes %}
+                            <option value="{{ equipe.getId }}">{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="score">Score</label>
+                    <input type="text" class="form-control" id="score" name="formMatch[score]">
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="duree">Durée (heures:minutes:secondes)</label>
+                    <input type="text" class="form-control" id="duree" name="formMatch[duree]" pattern="\d{2}:\d{2}:\d{2}"
+                           placeholder="HH:MM:SS">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+
         </div>
 
     </div>
