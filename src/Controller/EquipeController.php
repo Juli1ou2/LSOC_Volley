@@ -246,8 +246,8 @@ class EquipeController extends AbstractController
         ]);
     }
 
-    #[Route('/joueur/delete/{id}', name: 'app_joueur_delete',)]
-    public function delete($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    #[Route('/joueur/delete_m13/{id}', name: 'app_joueur_m13_delete',)]
+    public function delete_m13($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
     {
         $joueur = $joueurRepository->find($id);
 
@@ -257,6 +257,103 @@ class EquipeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_m13feminin');
+    }
+
+    #[Route('/joueur/delete_m15f/{id}', name: 'app_joueur_m15_f_delete',)]
+    public function delete_m15f($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_m15feminin');
+    }
+    #[Route('/joueur/delete_m15m/{id}', name: 'app_joueur_m15_m_delete',)]
+    public function delete_m15m($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_m15masculin');
+    }
+    #[Route('/joueur/delete_m18f/{id}', name: 'app_joueur_m18_f_delete',)]
+    public function delete_m18f($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_m18feminin');
+    }
+    #[Route('/joueur/delete_m18m/{id}', name: 'app_joueur_m18_m_delete',)]
+    public function delete_m18m($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_m18masculin');
+    }
+    #[Route('/joueur/delete_m21m/{id}', name: 'app_joueur_m21_m_delete',)]
+    public function delete_m21m($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_m21masculin');
+    }
+    #[Route('/joueur/delete_senior_f/{id}', name: 'app_joueur_senior_f_delete',)]
+    public function delete_senior_f($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_senior_feminin');
+    }
+    #[Route('/joueur/delete_senior_m/{id}', name: 'app_joueur_senior_m_delete',)]
+    public function delete_senior_m($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_senior_masculin');
+    }
+    #[Route('/joueur/delete_loisir/{id}', name: 'app_joueur_loisir_delete',)]
+    public function delete_loisir($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
+    {
+        $joueur = $joueurRepository->find($id);
+
+
+
+        $entityManager->remove($joueur);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_loisir');
     }
 
 }
