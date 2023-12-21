@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Eleve;
+use App\Entity\MatchVolley;
+use App\Form\EleveType;
+use App\Form\MatchVolleyType;
 use App\Repository\ClubRepository;
 use App\Repository\EquipeRepository;
 use App\Repository\MatchVolleyRepository;
@@ -18,14 +22,39 @@ class PlanningMatchController extends AbstractController
                           MatchVolleyRepository $matchVolleyRepository, EquipeRepository $equipeRepository, ClubRepository $clubRepository): Response
     {
         $listeMatchs = $matchVolleyRepository->findAll();
-        $listeEquipes = $equipeRepository->findAll();
-        $listeClub = $clubRepository->findAll();
+
+        $matchVolley = new MatchVolley();
+        $formMatchVolley = $this->createForm(MatchVolleyType::class, $matchVolley);
+        $formMatchVolley->handleRequest($request);
+
+        if($formMatchVolley->isSubmitted() && $formMatchVolley->isValid()){
+            $equipe1 = $formMatchVolley->get('equipe1')->getData();
+            $equipe2 = $formMatchVolley->get('equipe2')->getData();
+            $matchVolley->addEquipe($equipe1);
+            $matchVolley->addEquipe($equipe2);
+
+            $entityManager->persist($matchVolley); //précharger les données avant de les envoyer
+            $entityManager->flush($matchVolley); //envoi des données à la BDD
+
+            return $this->redirectToRoute('app_planning_match', ['random' => uniqid()]);
+        }
 
         return $this->render('planning_match/index.html.twig', [
             'controller_name' => 'PlanningMatchController',
             'listeMatchs' => $listeMatchs,
-            'listeEquipes' => $listeEquipes,
-            'equipeRepository' => $equipeRepository
+            'formMatchVolley' => $formMatchVolley
         ]);
+    }
+
+    #[Route('/match/delete/{id}', name:'app_match_volley_delete')]
+    public function delete($id, EntityManagerInterface$entityManager,
+                           MatchVolleyRepository $matchVolleyRepository) :Response{
+        $matchVolley = $matchVolleyRepository->find(["id" => $id]);
+        $entityManager->remove($matchVolley);
+        $entityManager->flush();
+
+        $this->redirectToRoute('app_planning_match');
+
+        return $this->redirectToRoute('app_planning_match');
     }
 }

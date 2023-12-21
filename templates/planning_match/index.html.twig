@@ -17,12 +17,12 @@
         }
     </style>
 
-    <div class="container-fluid">
+    <div class="container-fluid mt-5 mb-5">
 
-        <div class="container mt-3">
-            <h1>Planning des matchs</h1>
+        <div class="container">
+            <h3>Planning des matchs</h3>
 
-            <table class="table table-striped mt-4 mb-4 border border-3">
+            <table class="table table-striped mt-4 mb-5 border border-3">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -37,32 +37,80 @@
                 </tr>
                 </thead>
                 <tbody>
+                {# tri des matchs par date croissante #}
+                {% set listeMatchs = listeMatchs|sort((a, b) => a.dateMatch > b.dateMatch ? 1 : -1) %}
                 {% for match in listeMatchs %}
                     <tr>
                         <th>{{ match.getId }}</th>
                         <td>{{ match.getDateMatch.format('d-m-Y') }}</td>
                         <td>{{ match.getClub.nom }}</td>
+
                         {% set libelleEquipeVainqueur, nomClubEquipeVainqueur = '', '' %}
                         {% for equipe in match.getEquipes %}
                             {% if (match.getIdEquipeVainqueur != null) and (match.getIdEquipeVainqueur == equipe.getId) %}
                                 {% set libelleEquipeVainqueur = equipe.getLibelle %}
                                 {% set nomClubEquipeVainqueur = equipe.getClub.getNom %}
                             {% endif %}
-                            <td>{{ equipe.getLibelle }} {{ equipe.getClub.getNom }}</td>
+                            <td>{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</td>
                         {% endfor %}
 
-                        <td>{{ libelleEquipeVainqueur }} {{ nomClubEquipeVainqueur }}</td>
-
+                        <td>{{ libelleEquipeVainqueur }} - {{ nomClubEquipeVainqueur }}</td>
                         <td>{{ match.getScore }}</td>
                         <td>{{ match.getDuree }}</td>
-                        <td class="border border-1"><a class="btn" style="background-color: #C31B13;"
-                                                       role="button"><img src="{{ asset('images/supprimer.png') }}"
-                                                                          width="60%" height="60%"></a>
+                        <td class="border border-1">
+                            <a class="btn" style="background-color: #8eb1c7;"
+                               role="button"><img src="{{ asset('images/modifier.png') }}"
+                                                  width="" height="26px"></a>
+                            <a class="btn" style="background-color: #C31B13;" href="{{ path('app_match_volley_delete', {id : match.id}) }}"
+                               role="button"><img src="{{ asset('images/supprimer.png') }}"
+                                                  width="" height="26px"></a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+
+        <div class="container">
+            <h3>Ajouter un matchs</h3>
+
+            {{ form_start(formMatchVolley, {'attr':{'class':'form', 'style':'width: 30%;'}}) }}
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.dateMatch, 'Date', {'label_attr':{'class':'form-label'}}) }}
+                {{ form_widget(formMatchVolley.dateMatch, {'attr':{'class':'form-control', 'required':'required'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.club, 'Club à domicile', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
+                {{ form_widget(formMatchVolley.club, {'attr':{'class':'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.equipe1, 'Equipe 1', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
+                {{ form_widget(formMatchVolley.equipe1, {'attr':{'class':'form-select'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.equipe2, 'Equipe 2', {'label_attr':{'class':'form-label', 'required':'required'}}) }}
+                {{ form_widget(formMatchVolley.equipe2, {'attr':{'class':'form-select'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.idEquipe_vainqueur, 'ID équipe gagnante', {'label_attr':{'class':'form-label'}}) }}
+                {{ form_widget(formMatchVolley.idEquipe_vainqueur, {'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.idEquipe_perdant, 'ID équipe perdante', {'label_attr':{'class':'form-label'}}) }}
+                {{ form_widget(formMatchVolley.idEquipe_perdant, {'attr':{'class':'form-control'}}) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.score, 'Score', {'label_attr':{'class':'form-label'}}) }}
+                {{ form_widget(formMatchVolley.score, {'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(formMatchVolley.duree, 'Durée', {'label_attr':{'class':'form-label'}}) }}
+                {{ form_widget(formMatchVolley.duree, {'attr':{'class':'form-control'}}) }}
+            </div>
+            <button type="submit" class="btn text-white" style="background-color: #8eb1c7;">Enregistrer</button>
+            {{ form_end(formMatchVolley) }}
         </div>
 
     </div>
