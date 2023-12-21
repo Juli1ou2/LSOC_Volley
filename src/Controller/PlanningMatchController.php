@@ -24,7 +24,7 @@ class PlanningMatchController extends AbstractController
         $listeClubs = $clubRepository->findAll();
 
         $matchVolley = new MatchVolley();
-        $formMatch = $this->createForm(MatchType::class);
+        $formMatch = $this->createForm(MatchType::class, null, ['equipes' => $listeEquipes, 'clubs' => $listeClubs]);
         $formMatch->handleRequest($request);
 
         var_dump($matchVolley);
@@ -32,7 +32,11 @@ class PlanningMatchController extends AbstractController
         dump($request->request->all());
 
         if($formMatch->isSubmitted() && $formMatch->isValid()){
-            $idEquipe_vainqueur = (int) $formMatch->get('idEquipe_vainqueur')->getData();
+            var_dump($matchVolley);
+            dump($matchVolley);
+            dump($request->request->all());
+
+            $idEquipeVainqueur = (int) $formMatch->get('idEquipeVainqueur')->getData();
             $score = $formMatch->get('score')->getData();
             $duree = $formMatch->get('duree')->getData();
             $dateMatch = $formMatch->get('dateMatch')->getData();
@@ -40,17 +44,13 @@ class PlanningMatchController extends AbstractController
             $idEquipe1 = (int) $formMatch->get('idEquipe1')->getData();
             $idEquipe2 = (int) $formMatch->get('idEquipe2')->getData();
 
-            $matchVolley->setIdEquipeVainqueur($idEquipe_vainqueur);
+            $matchVolley->setIdEquipeVainqueur($idEquipeVainqueur);
             $matchVolley->setScore($score);
             $matchVolley->setDuree($duree);
             $matchVolley->setDateMatch($dateMatch);
             $matchVolley->setClub($clubRepository->find($idClub));
             $matchVolley->addEquipe($equipeRepository->find($idEquipe1));
             $matchVolley->addEquipe($equipeRepository->find($idEquipe2));
-
-            var_dump($matchVolley);
-            dump($matchVolley);
-            dump($request->request->all());
 
             $entityManager->persist($matchVolley);
             $entityManager->flush();

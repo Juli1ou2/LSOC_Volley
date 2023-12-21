@@ -90,64 +90,46 @@
         <div class="container">
             <h3>Ajouter un match</h3>
 
-            <form action="{{ path('app_planning_match') }}" method="post" style="width: 30%;">
-                <div class="form-group mb-3">
-                    <label for="dateMatch">Date du match</label>
-                    <input type="date" class="form-control" id="dateMatch" name="formMatch[dateMatch]" required>
-                </div>
+            {{ form_start(formMatch, {'attr': {'style': 'width: 30%;'}}) }}
 
-                <div class="form-group mb-3">
-                    <label for="idClub">Club</label>
-                    <select class="form-control" id="idClub" name="formMatch[idClub]" required>
-                        {% for club in listeClubs %}
-                            <option value="{{ club.getId }}">{{ club.getNom }} {{ club.getVille }}</option>
-                        {% endfor %}
-                        <!-- Ajoutez d'autres options selon vos besoins -->
-                    </select>
-                </div>
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.dateMatch, 'Date du match') }}
+                {{ form_widget(formMatch.dateMatch, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
 
-                <div class="form-group mb-3">
-                    <label for="idEquipe1">Équipe 1</label>
-                    <select class="form-control" id="idEquipe1" name="formMatch[idEquipe1]" required>
-                        {% for equipe in listeEquipes %}
-                            <option value="{{ equipe.getId }}">{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idClub, 'Club') }}
+                {{ form_widget(formMatch.idClub, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
 
-                <div class="form-group mb-3">
-                    <label for="idEquipe2">Équipe 2</label>
-                    <select class="form-control" id="idEquipe2" name="formMatch[idEquipe2]" required>
-                        {% for equipe in listeEquipes %}
-                            <option value="{{ equipe.getId }}">{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idEquipe1, 'Équipe 1') }}
+                {{ form_widget(formMatch.idEquipe1, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
 
-                <div class="form-group mb-3">
-                    <label for="idEquipeVainqueur">Équipe Vainqueur</label>
-                    <select class="form-control" id="idEquipeVainqueur" name="formMatch[idEquipeVainqueur]">
-                        <option value="">--</option>
-                        <option value="" class="text-warning">Match nul</option>
-                        {% for equipe in listeEquipes %}
-                            <option value="{{ equipe.getId }}">{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idEquipe2, 'Équipe 2') }}
+                {{ form_widget(formMatch.idEquipe2, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
 
-                <div class="form-group mb-3">
-                    <label for="score">Score</label>
-                    <input type="text" class="form-control" id="score" name="formMatch[score]">
-                </div>
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idEquipeVainqueur, 'Équipe Vainqueur') }}
+                {{ form_widget(formMatch.idEquipeVainqueur, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-                <div class="form-group mb-4">
-                    <label for="duree">Durée (heures:minutes:secondes)</label>
-                    <input type="text" class="form-control" id="duree" name="formMatch[duree]" pattern="\d{2}:\d{2}:\d{2}"
-                           placeholder="HH:MM:SS">
-                </div>
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.score, 'Score') }}
+                {{ form_widget(formMatch.score, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-            </form>
+            <div class="form-group mb-4">
+                {{ form_label(formMatch.duree, 'Durée (heures:minutes:secondes)') }}
+                {{ form_widget(formMatch.duree, {'attr': {'class': 'form-control', 'pattern': '\d{2}:\d{2}:\d{2}', 'placeholder': 'HH:MM:SS'}, 'required': false}) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+            {{ form_end(formMatch) }}
 
         </div>
 
