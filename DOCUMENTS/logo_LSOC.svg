@@ -25,15 +25,15 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.5"
-     inkscape:cx="574"
-     inkscape:cy="773"
+     inkscape:cx="705"
+     inkscape:cy="289"
      inkscape:window-width="1902"
      inkscape:window-height="1033"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
-     inkscape:snap-global="false" />
+     inkscape:snap-global="true" />
   <defs
      id="defs2">
     <inkscape:path-effect
@@ -683,19 +683,70 @@
        r="37.835415" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40.0899px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00225"
-       x="232.76718"
-       y="140.77777"
-       id="text5017"><tspan
+       style="font-style:normal;font-weight:normal;font-size:39.4678px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.986697"
+       x="229.34077"
+       y="158.91586"
+       id="text5017"
+       inkscape:export-filename="D:\WORKSPACES\Workspace_PhpStorm-Symfony\LSOC_Volley\public\images\charte_graphique.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan5015"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';stroke-width:1.00225"
-         x="232.76718"
-         y="140.77777"> Segoe UI</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI';stroke-width:0.986697"
+         x="229.34077"
+         y="158.91586">Segoe UI</tspan><tspan
          sodipodi:role="line"
-         style="stroke-width:1.00225"
-         x="232.76718"
-         y="190.89015"
+         style="stroke-width:0.986697"
+         x="229.34077"
+         y="208.25061"
          id="tspan5019" /></text>
+    <rect
+       style="fill:#c31b13;stroke-width:0.534887;stroke-linecap:round;fill-opacity:1"
+       id="rect20265"
+       width="75.346443"
+       height="46.566666"
+       x="231.67261"
+       y="175.15416"
+       inkscape:export-filename="D:\WORKSPACES\Workspace_PhpStorm-Symfony\LSOC_Volley\public\images\charte_graphique.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#8eb1c7;stroke-width:0.534887;stroke-linecap:round;fill-opacity:1"
+       id="rect20369"
+       width="75.346443"
+       height="46.566666"
+       x="307.01904"
+       y="175.15416"
+       inkscape:export-filename="D:\WORKSPACES\Workspace_PhpStorm-Symfony\LSOC_Volley\public\images\charte_graphique.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="319.53366"
+       y="202.28996"
+       id="text23283"
+       inkscape:export-filename="D:\WORKSPACES\Workspace_PhpStorm-Symfony\LSOC_Volley\public\images\charte_graphique.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan23281"
+         style="fill:#ffffff;stroke-width:0.264583"
+         x="319.53366"
+         y="202.28996">#8EB1C7</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="244.13556"
+       y="202.28996"
+       id="text28705"
+       inkscape:export-filename="D:\WORKSPACES\Workspace_PhpStorm-Symfony\LSOC_Volley\public\images\charte_graphique.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan28703"
+         style="fill:#ffffff;stroke-width:0.264583"
+         x="244.13556"
+         y="202.28996">#C31B13</tspan></text>
   </g>
 </svg>

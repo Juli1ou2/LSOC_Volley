@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning matchs{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="container-fluid">
+
+        <div class="container mt-3">
+            <h1>Planning des matchs</h1>
+
+            <table class="table table-striped mt-4 mb-4 border border-3">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Club à domicile</th>
+                    <th scope="col">Equipe 1</th>
+                    <th scope="col">Equipe 2</th>
+                    <th scope="col">Vainqueur</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col" class="border border-1">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for match in listeMatchs %}
+                    <tr>
+                        <th>{{ match.getId }}</th>
+                        <td>{{ match.getDateMatch.format('d-m-Y') }}</td>
+                        <td>{{ match.getClub.nom }}</td>
+                        {% set libelleEquipeVainqueur, nomClubEquipeVainqueur = '', '' %}
+                        {% for equipe in match.getEquipes %}
+                            {% if (match.getIdEquipeVainqueur != null) and (match.getIdEquipeVainqueur == equipe.getId) %}
+                                {% set libelleEquipeVainqueur = equipe.getLibelle %}
+                                {% set nomClubEquipeVainqueur = equipe.getClub.getNom %}
+                            {% endif %}
+                            <td>{{ equipe.getLibelle }} {{ equipe.getClub.getNom }}</td>
+                        {% endfor %}
+
+                        <td>{{ libelleEquipeVainqueur }} {{ nomClubEquipeVainqueur }}</td>
+
+                        <td>{{ match.getScore }}</td>
+                        <td>{{ match.getDuree }}</td>
+                        <td class="border border-1"><a class="btn" style="background-color: #C31B13;"
+                                                       role="button"><img src="{{ asset('images/supprimer.png') }}"
+                                                                          width="60%" height="60%"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

@@ -77,7 +77,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Événements</a></li>
-                        <li><a class="dropdown-item" href="#">Planning des matchs compétition</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_planning_match') }}">Planning des matchs</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -102,10 +102,10 @@
             </ul>
             <span class="navbar-text">
 {% if app.user %}
-    <a class="nav-link active border border-danger rounded p-1 bg-danger text-white" aria-current="page"
+    <a class="nav-link active border border-danger rounded p-1 text-white" style="background-color: #C31B13;" aria-current="page"
        href={{ path('app_logout') }}>Déconnexion</a>
     {% else %}
-    <a class="nav-link active border border-danger rounded p-1 bg-danger text-white" aria-current="page"
+    <a class="nav-link active border border-danger rounded p-1 text-white" style="background-color: #C31B13;" aria-current="page"
        href={{ path('app_login') }}>Connexion</a>
 {% endif %}
             </span>
