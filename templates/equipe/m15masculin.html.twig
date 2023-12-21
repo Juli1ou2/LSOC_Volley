@@ -18,10 +18,11 @@
 
             <button type="button" class="btn btn-danger"  onclick="window.location.href ='{{asset("https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php?saison=2023/2024&codent=PTIDF92&poule=MMA")}}';">Suivez le calendrier de nos M15 M</button>
             <br>
-            <br><table class="table">
+            <br>
+            <table class="table">
                 <thead>
                 <tr>
-
+                    <th scope="col">Photo</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prénom</th>
                     <th scope="col">Age</th>
@@ -30,26 +31,43 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for joueur in joueurs %}
-                    <tr>
+                {% for equipe in equipes %}
+                    {%if equipe.id == 3  %}
+                        <ul>
+                            {% for joueur in equipe.joueurs %}
+                                <tr>
+                                    {% if joueur.cheminPhoto == null %}
+                                        <td>
+                                            <img src="{{asset("images/avatar.png")}}" width="100%" height="100%" >
+                                        </td>
+                                    {% endif %}
+                                    {% if joueur.cheminPhoto %}
+                                        <td>
+                                            <img src="{{ asset(joueur.cheminPhoto) }}" width="100%" height="100%">
+                                        </td>
+                                    {% endif %}
+                                    <td>{{ joueur.nom }}</td>
+                                    <td>{{ joueur.prenom }}</td>
+                                    <td>{{ joueur.age }}</td>
+                                    <td>{{ joueur.taille }}</td>
+                                    <td>{{ joueur.poste }}</td>
 
-                        <td>{{ joueur.nom }}</td>
-                        <td>{{ joueur.prenom }}</td>
-                        <td>{{ joueur.age }}</td>
-                        <td>{{ joueur.taille }}</td>
-                        <td>{{ joueur.poste }}</td>
-                        <td>
-                            <a class="btn btn-secondary"
-                               role="button">Modifier
-                            </a>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger"
-                               role="button">Supprimer
-                            </a>
-                        </td>
 
-                    </tr>
+                                    <td>
+                                        <a class="btn btn-secondary"
+                                           role="button">Modifier
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="{{ path('app_joueur_m15_m_delete',{'id': joueur.id}) }}"
+                                           role="button">Supprimer
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 {% endfor %}
 
 
@@ -57,6 +75,95 @@
             </table>
 
 
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Ajouter un joueur
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Formulaire ajouter un joueur</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-3 mb-2 bg-body-secondary rounded" style="width: auto">
+
+
+                                {{ form_start(form,{'attr':{'class':'form-horizontal'}})}}
+                                <div class="mb-3">
+                                    {{ form_label(form.nom,'Nom',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.nom, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.prenom,'Prenom',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.prenom, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.numeroLicence,'Numéro de licence',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.numeroLicence, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.numero,'Numéro de téléphone',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.numero, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.age,'Age',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.age, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.dateNaissance,'Date de naissance',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.dateNaissance, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.taille,'Taille',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.taille, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.poste,'Poste',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.poste, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.genre,'Genre',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.genre, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.cheminPhoto,'Chemin photo',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.cheminPhoto, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.nationalite,'Nationalité',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.nationalite, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ form_label(form.equipes,'Equipes',{'label_attr':{'class':'form-label'}}) }}
+                                    {{ form_widget(form.equipes, {'attr':{'class':'form-control'}}) }}
+                                </div>
+                                <button type="submit" class="btn btn-success">Enregistrer</button>
+
+                                {{ form_end(form)}}
+                                <ul>
+                                    <li> 1 => M13 F</li>
+                                    <li> 2 => M15 F</li>
+                                    <li> 3 => M15 M</li>
+                                    <li> 4 => M18 F</li>
+                                    <li> 5 => M18 M</li>
+                                    <li> 6 => M21 M</li>
+                                    <li> 7 => Sénior M</li>
+                                    <li> 8 => Sénior F</li>
+                                    <li> 9 => Loisir</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
