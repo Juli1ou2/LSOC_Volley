@@ -32,6 +32,9 @@
                 <tbody>
                 {% for equipe in equipes %}
                     {%if equipe.id == 5  %}
+                        {% for entraineur in equipe.entraineurs %}
+                            <p> Coach : {{ entraineur.nom }} {{ entraineur.prenom  }}</p>
+                        {% endfor %}
                         <ul>
                             {% for joueur in equipe.joueurs %}
                                 <tr>
