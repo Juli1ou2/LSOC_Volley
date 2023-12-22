@@ -27,9 +27,9 @@ class PlanningMatchController extends AbstractController
         $formMatch = $this->createForm(MatchType::class, null, ['equipes' => $listeEquipes, 'clubs' => $listeClubs]);
         $formMatch->handleRequest($request);
 
-        var_dump($matchVolley);
+        /*var_dump($matchVolley);
         dump($matchVolley);
-        dump($request->request->all());
+        dump($request->request->all());*/
 
         //TODO
         if($formMatch->isSubmitted() && $formMatch->isValid()){
