@@ -195,14 +195,14 @@ class Joueur
     }
 
     /**
-     * @return Collection<int, equipe>
+     * @return Collection<int, Equipe>
      */
     public function getEquipes(): Collection
     {
         return $this->equipes;
     }
 
-    public function addEquipe(equipe $equipe): static
+    public function addEquipe(Equipe $equipe): static
     {
         if (!$this->equipes->contains($equipe)) {
             $this->equipes->add($equipe);
@@ -211,7 +211,7 @@ class Joueur
         return $this;
     }
 
-    public function removeEquipe(equipe $equipe): static
+    public function removeEquipe(Equipe $equipe): static
     {
         $this->equipes->removeElement($equipe);
 

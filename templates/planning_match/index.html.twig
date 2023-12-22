@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning matchs{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="container-fluid mt-5 mb-5">
+
+        <div class="container">
+            <h3>Planning des matchs</h3>
+
+            <table class="table table-striped mt-4 mb-5 border border-3">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Club à domicile</th>
+                    <th scope="col">Equipe 1</th>
+                    <th scope="col">Equipe 2</th>
+                    <th scope="col">Vainqueur</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col" class="border border-1">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# tri des matchs par date croissante #}
+                {% set listeMatchs = listeMatchs|sort((a, b) => a.dateMatch > b.dateMatch ? 1 : -1) %}
+                {% for match in listeMatchs %}
+                    <tr>
+                        <th>{{ match.getId }}</th>
+                        <td>{{ match.getDateMatch.format('d-m-Y') }}</td>
+                        <td>{{ match.getClub.nom }}</td>
+
+                        {% set libelleEquipeVainqueur, nomClubEquipeVainqueur = '', '' %}
+                        {% for equipe in match.getEquipes %}
+                            {% if (match.getIdEquipeVainqueur != null) and (match.getIdEquipeVainqueur == equipe.getId) %}
+                                {% set libelleEquipeVainqueur = equipe.getLibelle %}
+                                {% set nomClubEquipeVainqueur = equipe.getClub.getNom %}
+                            {% endif %}
+                            <td>{{ equipe.getLibelle }} - {{ equipe.getClub.getNom }}</td>
+                        {% endfor %}
+
+                        {% if match.getIdEquipeVainqueur != '' %}
+                            <td>{{ libelleEquipeVainqueur }} - {{ nomClubEquipeVainqueur }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                        {% if match.getScore != '' %}
+                            <td>{{ match.getScore }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                        {% if match.getDuree != '' %}
+                            <td>{{ match.getDuree.format('H:i:s') }}</td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+
+                        <td class="border border-1">
+                            <a class="btn" style="background-color: #8eb1c7;"
+                               role="button"><img src="{{ asset('images/modifier.png') }}"
+                                                  width="" height="26px"></a>
+                            <a class="btn" style="background-color: #C31B13;"
+                               href="{{ path('app_match_volley_delete', {id : match.id}) }}"
+                               role="button"><img src="{{ asset('images/supprimer.png') }}"
+                                                  width="" height="26px"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <h3>Ajouter un match</h3>
+
+            {{ form_start(formMatch, {'attr': {'style': 'width: 30%;'}}) }}
+
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.dateMatch, 'Date du match') }}
+                {{ form_widget(formMatch.dateMatch, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idClub, 'Club') }}
+                {{ form_widget(formMatch.idClub, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idEquipe1, 'Équipe 1') }}
+                {{ form_widget(formMatch.idEquipe1, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idEquipe2, 'Équipe 2') }}
+                {{ form_widget(formMatch.idEquipe2, {'attr': {'class': 'form-control'}, 'required': true}) }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.idEquipeVainqueur, 'Équipe Vainqueur') }}
+                {{ form_widget(formMatch.idEquipeVainqueur, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form_label(formMatch.score, 'Score') }}
+                {{ form_widget(formMatch.score, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group mb-4">
+                {{ form_label(formMatch.duree, 'Durée (heures:minutes:secondes)') }}
+                {{ form_widget(formMatch.duree, {'attr': {'class': 'form-control', 'pattern': '\d{2}:\d{2}:\d{2}', 'placeholder': 'HH:MM:SS'}, 'required': false}) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+            {{ form_end(formMatch) }}
+
+        </div>
+
+    </div>
+{% endblock %}
