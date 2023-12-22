@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Infos complémentaires{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid mt-5 mb-5 d-flex flex-row">
+        <div class="card mb-3" style="width: 100rem; margin-right: 10px;">
+{#            <img src="{{ asset('images/volley_home.jpg') }}" class="card-img-top" height="426px" width="640px" alt="Image illustration">#}
+            <div class="card-body">
+                <h5 class="card-title">{{ evenement.getLibelle }}</h5>
+                {% if evenement.getHeureEvenement != '' %}
+                    <p class="card-text">{{ evenement.getDateEvenement.format('d/m/Y') }} <small
+                                class="text-muted">{{ evenement.getHeureEvenement.format('H:i') }}</small>
+                    </p>
+                {% else %}
+                    <p class="card-text">{{ evenement.getDateEvenement.format('d-m-Y') }}</p>
+                {% endif %}
+                <p class="card-text">Organisé par {{ evenement.getClub.getNom }}</p>
+                <p class="card-text">DESCRIPTION :<br>{{ evenement.getDescription }}</p>
+                <a href="{{ path('app_page_evenement') }}"
+                   class="btn btn-outline-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

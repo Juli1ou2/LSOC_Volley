@@ -2,6 +2,7 @@ use lsoc_volley ;
 -- CLUBS--
 INSERT INTO `club` (`id`, `nom`, `ville`, `adresse`) VALUES (NULL, 'Test Championz', 'TEST', '12 rue du Test - 77530 TEST');
 INSERT INTO `club` (`id`, `nom`, `ville`, `adresse`) VALUES (NULL, 'Test2 Gang', 'TEST2', '12 rue du Test2 - 78530 TEST2');
+INSERT INTO `club` (`id`, `nom`, `ville`, `adresse`) VALUES (NULL, 'LSOC', 'COLOMBES', '288 Rue du Président Salvador Allende, 92700 Colombes');
 
 -- EQUIPES --
 INSERT INTO `equipe` (`id`, `club_id`, `libelle`, `classement`) VALUES (NULL, '1', 'Loisir', 'Aucun');

@@ -70,4 +70,15 @@ class PageEvenementController extends AbstractController
             'formEvenement' => $formEvenement->createView(),
         ]);
     }
+
+    #[Route('/evenement/infos/{id}', name: 'app_evenement_infos')]
+    public function infos($id, Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository): Response
+    {
+        $evenement = $evenementRepository->find($id);
+
+        return $this->render('page_evenement/infos.html.twig', [
+            'controller_name' => 'PageEvenementController',
+            'evenement' => $evenement
+        ]);
+    }
 }
