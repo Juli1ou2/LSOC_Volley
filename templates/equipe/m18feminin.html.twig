@@ -4,8 +4,17 @@
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
     </style>
 
     <div class="example-wrapper">
@@ -13,12 +22,16 @@
                     width: 60%;" class="text-center">
             <br>
             <h2>M18 Féminin</h2>
-            <img   alt="photo_equipe_m18_feminin" src="{{asset("images/m18_feminin.jpeg")}}" width="65%" height="5%">
+            <img alt="photo_equipe_m18_feminin" src="{{ asset("images/m18_feminin.jpeg") }}" width="65%" height="5%">
             <br><br>
 
-            <button type="button" class="btn btn-danger"  onclick="window.open(' https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php?saison=2023/2024&codent=PTIDF92&poule=CFA', '_blank')">Suivez le calendrier de nos M18 F</button>
+            <button type="button" class="btn btn-danger"
+                    onclick="window.open(' https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php?saison=2023/2024&codent=PTIDF92&poule=CFA', '_blank')">
+                Suivez le calendrier de nos M18 F
+            </button>
             <br>
-            <br><table class="table">
+            <br>
+            <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">Photo</th>
@@ -27,20 +40,25 @@
                     <th scope="col">Age</th>
                     <th scope="col">Taille</th>
                     <th scope="col">Poste</th>
+                    {% if app.user %}
+                        {% if app.user.getRole == "admin" or app.user.getRole == "coach" %}
+                            <th scope="col">Actions</th>
+                        {% endif %}
+                    {% endif %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for equipe in equipes %}
-                    {%if equipe.id == 4  %}
+                    {% if equipe.id == 5 %}
                         {% for entraineur in equipe.entraineurs %}
-                            <p> Coach : {{ entraineur.nom }} {{ entraineur.prenom  }}</p>
+                            <p> Coach : {{ entraineur.nom }} {{ entraineur.prenom }}</p>
                         {% endfor %}
                         <ul>
                             {% for joueur in equipe.joueurs %}
                                 <tr>
                                     {% if joueur.cheminPhoto == null %}
                                         <td>
-                                            <img src="{{asset("images/avatar.png")}}" width="100%" height="100%" >
+                                            <img src="{{ asset("images/avatar.png") }}" width="100%" height="100%">
                                         </td>
                                     {% endif %}
                                     {% if joueur.cheminPhoto %}
@@ -55,16 +73,19 @@
                                     <td>{{ joueur.poste }}</td>
 
 
-                                    <td>
-                                        <a class="btn btn-secondary"
-                                           role="button">Modifier
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-danger" href="{{ path('app_joueur_m18_f_delete',{'id': joueur.id}) }}"
-                                           role="button">Supprimer
-                                        </a>
-                                    </td>
+                                    {% if app.user %}
+                                        {% if app.user.getRole == "admin" or app.user.getRole == "coach" %}
+                                            <td>
+                                                <a class="btn btn-secondary"
+                                                   role="button">Modifier
+                                                </a>
+                                                <a class="btn btn-danger"
+                                                   href="{{ path('app_joueur_m18_f_delete',{'id': joueur.id}) }}"
+                                                   role="button">Supprimer
+                                                </a>
+                                            </td>
+                                        {% endif %}
+                                    {% endif %}
 
                                 </tr>
                             {% endfor %}
@@ -78,12 +99,17 @@
 
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Ajouter un joueur
-            </button>
+            {% if app.user %}
+                {% if app.user.getRole == "admin" or app.user.getRole == "coach" %}
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Ajouter un joueur
+                    </button>
+                {% endif %}
+            {% endif %}
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -94,7 +120,7 @@
                             <div class="p-3 mb-2 bg-body-secondary rounded" style="width: auto">
 
 
-                                {{ form_start(form,{'attr':{'class':'form-horizontal'}})}}
+                                {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
                                 <div class="mb-3">
                                     {{ form_label(form.nom,'Nom',{'label_attr':{'class':'form-label'}}) }}
                                     {{ form_widget(form.nom, {'attr':{'class':'form-control'}}) }}
@@ -145,7 +171,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-success">Enregistrer</button>
 
-                                {{ form_end(form)}}
+                                {{ form_end(form) }}
                                 <ul>
                                     <li> 1 => M13 F</li>
                                     <li> 2 => M15 F</li>

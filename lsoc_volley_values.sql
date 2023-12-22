@@ -9,6 +9,19 @@ INSERT INTO `equipe` (`id`, `club_id`, `libelle`, `classement`) VALUES (NULL, '1
 INSERT INTO `equipe` (`id`, `club_id`, `libelle`, `classement`) VALUES (NULL, '2', 'Loisir', 'Aucun');
 INSERT INTO `equipe` (`id`, `club_id`, `libelle`, `classement`) VALUES (NULL, '1', 'M18 Féminin', 'Régional');
 INSERT INTO `equipe` (`id`, `club_id`, `libelle`, `classement`) VALUES (NULL, '2', 'M18 Féminin', 'Régional');
+INSERT INTO `equipe` (`id`, `club_id`, `libelle`, `classement`) VALUES (NULL, '3', 'M18 Féminin', NULL);
+
+-- JOUEURS --
+INSERT INTO joueur (numero_licence, numero, nom, prenom, age, poste,date_naissance) VALUES (45321, 5613473, 'G', 'Soleyne', 21, 'R4','1995-12-11');
+INSERT INTO joueur (numero_licence, numero, nom, prenom, age, poste,date_naissance) VALUES (45321, 5613473, 'albares', 'elodie', 21, 'R4','1995-12-11');
+INSERT INTO joueur (numero_licence, numero, nom, prenom, age, poste,date_naissance) VALUES (45321, 5613473, 'G', 'Marie', 21, 'Passeuse','1995-12-11');
+INSERT INTO joueur (numero_licence, numero, nom, prenom, age, poste,date_naissance) VALUES (45321, 5613473, 'P', 'Sarah', 21, 'R4','1995-12-11');
+
+-- JOUEUR EQUIPE --
+INSERT INTO `joueur_equipe` (`joueur_id`, `equipe_id`) VALUES ('3', '5');
+INSERT INTO `joueur_equipe` (`joueur_id`, `equipe_id`) VALUES ('2', '5');
+INSERT INTO `joueur_equipe` (`joueur_id`, `equipe_id`) VALUES ('4', '5');
+INSERT INTO `joueur_equipe` (`joueur_id`, `equipe_id`) VALUES ('5', '5');
 
 -- MATCHS --
 INSERT INTO `match_volley` (`id`, `club_id`, `id_equipe_vainqueur`, `id_equipe_perdant`, `score`, `duree`, `date_match`) VALUES (NULL, '1', NULL, NULL, NULL, NULL, '2023-12-27');
