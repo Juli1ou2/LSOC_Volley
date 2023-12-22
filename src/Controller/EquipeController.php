@@ -233,6 +233,7 @@ class EquipeController extends AbstractController
         $equipes = $equipeRepository->findAll();
         $joueurs = $joueurRepository->findAll();
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($joueur);
             $entityManager->flush();
@@ -245,7 +246,7 @@ class EquipeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+//Fonction delete()
     #[Route('/joueur/delete_m13/{id}', name: 'app_joueur_m13_delete',)]
     public function delete_m13($id, EntityManagerInterface $entityManager, JoueurRepository $joueurRepository): Response
     {
