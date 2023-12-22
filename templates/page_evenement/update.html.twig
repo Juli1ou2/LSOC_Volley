@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'événement{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h3>Modifier l'événement</h3>
+
+        {{ form_start(formEvenement, {'attr': {'style': 'width: 80%'}}) }}
+
+        <div class="form-group mb-3">
+            {{ form_label(formEvenement.libelle, 'Libellé') }}
+            {{ form_widget(formEvenement.libelle, {'attr': {'class': 'form-control'}, 'required': true}) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(formEvenement.dateEvenement, 'Date') }}
+            {{ form_widget(formEvenement.dateEvenement, {'attr': {'class': 'form-control'}, 'required': true}) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(formEvenement.heureEvenement, 'Heure') }}
+            {{ form_widget(formEvenement.heureEvenement, {'attr': {'class': 'form-control'}, 'required': true}) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(formEvenement.description, 'Description') }}
+            {{ form_widget(formEvenement.description, {'attr': {'class': 'form-control'}, 'required': false}) }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form_label(formEvenement.club, 'Club organisateur') }}
+            {{ form_widget(formEvenement.club, {'attr': {'class': 'form-control'}, 'required': true}) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+
+        {{ form_end(formEvenement) }}
+    </div>
+{% endblock %}

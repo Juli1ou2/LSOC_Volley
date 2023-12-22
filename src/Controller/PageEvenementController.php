@@ -49,4 +49,25 @@ class PageEvenementController extends AbstractController
 
         return $this->redirectToRoute('app_page_evenement');
     }
+
+    #[Route('/evenement/update/{id}', name: 'app_evenement_update')]
+    public function update($id, Request $request, EntityManagerInterface $entityManager, EvenementRepository $evenementRepository): Response
+    {
+        $evenement = $evenementRepository->find($id);
+
+        // Créer le formulaire avec les données de l'événement existant
+        $formEvenement = $this->createForm(EvenementType::class, $evenement);
+        $formEvenement->handleRequest($request);
+
+        if ($formEvenement->isSubmitted() && $formEvenement->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_page_evenement');
+        }
+
+        return $this->render('page_evenement/update.html.twig', [
+            'controller_name' => 'PageEvenementController',
+            'formEvenement' => $formEvenement->createView(),
+        ]);
+    }
 }

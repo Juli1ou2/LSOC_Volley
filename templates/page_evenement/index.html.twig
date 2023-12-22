@@ -57,21 +57,23 @@
         <div class="container">
             <h3>Les événements</h3>
 
-            <div class="card-container d-flex flex-wrap justify-content-between">
+            <div class="card-container d-flex flex-wrap justify-content-start">
+                {% set listeEvenements = listeEvenements|sort((a, b) => a.dateEvenement > b.dateEvenement ? 1 : -1) %}
                 {% for evenement in listeEvenements %}
-                    <div class="card mb-3 mr-2 ml-2" style="width: 18rem;">
+                    <div class="card mb-3" style="width: 18rem; margin-right: 10px;">
                         {#        <img src="images/${film.dateSortie}.webp" class="card-img-top" alt="${film.titre}"> #}
                         <div class="card-body">
                             <h5 class="card-title">{{ evenement.getLibelle }}</h5>
                             {% if evenement.getHeureEvenement != '' %}
-                                <p class="card-text">{{ evenement.getDateEvenement.format('d-m-Y') }} <small
-                                            class="text-muted">{{ evenement.getHeureEvenement.format('H:i:s') }}</small>
+                                <p class="card-text">{{ evenement.getDateEvenement.format('d/m/Y') }} <small
+                                            class="text-muted">{{ evenement.getHeureEvenement.format('H:i') }}</small>
                                 </p>
                             {% else %}
                                 <p class="card-text">{{ evenement.getDateEvenement.format('d-m-Y') }}</p>
                             {% endif %}
+                            <p class="card-text">Organisé par {{ evenement.getClub.getNom }}</p>
                             {#                <p class="card-text">${film.description.substring(0, 100)} etc.</p> #}
-                            <a href="#" class="btn btn-outline-primary" onclick="">Sélectionner</a>
+                            <a href="{{ path('app_evenement_update', {id: evenement.id}) }}" class="btn btn-outline-primary">Sélectionner</a>
                             <a class="btn btn-outline-danger"
                                href="{{ path('app_evenement_delete', {id : evenement.id}) }}"
                             >Supprimer</a>

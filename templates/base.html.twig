@@ -77,7 +77,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_page_evenement') }}">Événements</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_planning_match') }}">Planning des matchs</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_planning_match') }}">Planning des matchs</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -102,10 +103,12 @@
             </ul>
             <span class="navbar-text">
 {% if app.user %}
-    <a class="nav-link active border border-danger rounded p-1 text-white" style="background-color: #C31B13;" aria-current="page"
+    <a class="nav-link active border border-danger rounded p-1 text-white" style="background-color: #C31B13;"
+       aria-current="page"
        href={{ path('app_logout') }}>Déconnexion</a>
     {% else %}
-    <a class="nav-link active border border-danger rounded p-1 text-white" style="background-color: #C31B13;" aria-current="page"
+    <a class="nav-link active border border-danger rounded p-1 text-white" style="background-color: #C31B13;"
+       aria-current="page"
        href={{ path('app_login') }}>Connexion</a>
 {% endif %}
             </span>
@@ -196,9 +199,12 @@
         <!-- Section: Text -->
         <section class="mb-4">
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
-                harum corrupti dicta, aliquam sequi voluptate quas.
+                <a href="https://www.facebook.com/profile.php?id=100092455260755" target="_blank">
+                    <img src="{{ asset('images/logo_facebook.png') }}" alt="Logo page Facebook LSOC" width="40px"
+                         height="40px"></a>
+                <a href="https://www.instagram.com/lsoc_volley?igsh=cjJ2aGNiZGQzbWJq" target="_blank">
+                    <img src="{{ asset('images/logo_instagram.png') }}" alt="Logo page Instagram LSOC" width="40px"
+                         height="40px"></a>
             </p>
         </section>
         <!-- Section: Text -->
